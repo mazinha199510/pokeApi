@@ -13,11 +13,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { PokemonComponent } from './pages/pokemon/pokemon.component';
+import { ItemsComponent } from './pages/items/items.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    PokemonComponent
+    PokemonComponent,
+    ItemsComponent
   ],
   imports: [
     BrowserModule,

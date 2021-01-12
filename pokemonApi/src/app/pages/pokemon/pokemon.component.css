@@ -61,10 +61,6 @@ table {
     color: white;
   }
   
-  .modal-header button:target{
-    border:none;
-  }
-  
   .example-viewport {
     height: 300px;
     width: 100%;
