@@ -27,8 +27,8 @@ export class ItemsComponent implements OnInit {
   constructor(private itemsService: ItemApiService,
               private spinner: NgxSpinnerService) { }
 
-  ngOnInit(): void {
-    this.spinner.show();
+  ngOnInit(): void {   
+    this.spinner.show(); 
     this.getItems();
   }
 
