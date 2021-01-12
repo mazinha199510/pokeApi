@@ -12,17 +12,17 @@
             <div class="col-md-2">
                 <h5>Filters:</h5>
             </div>
-                <mat-form-field class="col-md-3">
+                <mat-form-field class="col-md-3 col-12">
                     <mat-label>Name</mat-label>
                     <input matInput [(ngModel)]="name" (keyup)="filter(1)" #input>
                 </mat-form-field>
-                <mat-form-field appearance="fill" class="col-md-3">
+                <mat-form-field appearance="fill" class="col-md-3 col-12">
                     <mat-label>Types</mat-label>
                     <mat-select multiple (selectionChange)="validateTypes($event)">
                         <mat-option *ngFor="let type of types" [value]="type.name">{{type.name}}</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <mat-form-field appearance="fill" class="col-md-3">
+                <mat-form-field appearance="fill" class="col-md-3 col-12">
                     <mat-label>Habilitys</mat-label>
                     <mat-select multiple [(ngModel)]="habilitySelected" (selectionChange)="filter(2)">
                         <mat-option *ngFor="let hability of habilitys" [value]="hability.name">{{hability.name}}
