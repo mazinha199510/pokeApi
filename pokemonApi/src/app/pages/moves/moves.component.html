@@ -91,17 +91,17 @@
           <h5>PP Max</h5>
           <p class="badge badge-success">{{(move !== undefined)? move.pp : 'N/A'}}</p>
           <h5>Effect</h5>
-          <p class="badge badge-warning">{{(move !== undefined && move.effect_entries !== undefined)? move.effect_entries[0].effect : 'N/A'}}</p>
+          <p class="badge badge-warning">{{(move !== undefined && move.effect_entries.length > 0)? move.effect_entries[0].effect : 'N/A'}}</p>
           <h5>Priority</h5>
           <p class="badge badge-success">{{(move !== undefined)? move.priority : 'N/A'}}</p>
           <h5>Critic Rate</h5>
-          <p class="badge badge-success">{{(move !== undefined && move.meta !== undefined)? move.meta.crit_rate : 'N/A'}}</p>
+          <p class="badge badge-success">{{(move !== undefined && move.meta !== null)? move.meta.crit_rate : 'N/A'}}</p>
           <h5>Priority</h5>
           <p class="badge badge-success">{{(move !== undefined)? move.priority : 'N/A'}}</p>
           <h5>Accuracy</h5>
-          <p class="badge badge-success">{{(move !== undefined)? move.accuracy : 'N/A'}}</p>
+          <p class="badge badge-success">{{(move !== undefined && move.accuracy !== null)? move.accuracy : 'N/A'}}</p>
           <h5>Power</h5>
-          <p class="badge badge-success">{{(move !== undefined)? move.power : 'N/A'}}</p>
+          <p class="badge badge-success">{{(move !== undefined && move.power !== null)? move.power : 'N/A'}}</p>
         </div>
         <div class="modal-footer">
         </div>
