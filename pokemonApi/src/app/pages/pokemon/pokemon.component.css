@@ -1,0 +1,80 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 15%;
+  }
+  
+  td, th {
+    width: 25%;
+  }
+  
+  .modal-dialog{
+    font-weight: bold;
+  }
+  
+  .modal-header{
+    display: block !important;
+  }
+  
+  .modal-content{
+    border-radius: 25px;
+    border: solid 4px #FFFFE0;
+  }
+  
+  #infoPokemon p{
+    white-space: pre-line;
+  }
+  
+  #infoPokemon img{
+    width: 125px;
+    margin-bottom: -7%;
+  }
+  
+  #infoPokemon hr{
+    border-top: 9px solid darkgreen;
+    width:40%;
+    border-radius: 25px;
+  }
+  
+  .modal-footer{
+    display: block !important;
+    text-align:center;
+    background-color: #ef5350;
+    border-radius: 0 0 20px 20px;
+  }
+  
+  .badge{
+    padding: 6px;
+  }
+  
+  .modal-header{
+    background-color: #ef5350;
+    color:white;
+    border-radius: 20px 20px 0 0;
+  }
+  
+  .modal-header button{
+    margin-top: -15%;
+    color: white;
+  }
+  
+  .modal-header button:target{
+    border:none;
+  }
+  
+  .example-viewport {
+    height: 300px;
+    width: 100%;
+  }
+  
+  .example-item {
+    height: 50px;
+  }
+  
+  .modal-body{
+    overflow-y: auto;
+    max-height: 400px;
+  }

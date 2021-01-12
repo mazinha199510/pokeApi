@@ -1,0 +1,164 @@
+<div class="text-center mt-3">
+    <h1>Pokemon Listing</h1>
+</div>
+
+<ngx-spinner bdColor = "rgb(0,0,0,1)" size = "medium" color = "#fff" type = "square-jelly-box" [fullScreen] = "true">
+    <p style="color: white" > Loading... </p>
+</ngx-spinner>
+
+<div >
+    <div class="mt-5 container">
+        <div class="row col-sm-12">
+            <div class="col-md-2">
+                <h5>Filters:</h5>
+            </div>
+                <mat-form-field class="col-md-3">
+                    <mat-label>Name</mat-label>
+                    <input matInput [(ngModel)]="name" (keyup)="filter(1)" #input>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="col-md-3">
+                    <mat-label>Types</mat-label>
+                    <mat-select multiple (selectionChange)="validateTypes($event)">
+                        <mat-option *ngFor="let type of types" [value]="type.name">{{type.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="col-md-3">
+                    <mat-label>Habilitys</mat-label>
+                    <mat-select multiple [(ngModel)]="habilitySelected" (selectionChange)="filter(2)">
+                        <mat-option *ngFor="let hability of habilitys" [value]="hability.name">{{hability.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+        </div>
+    </div>
+
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+                <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+                <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="image">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Image </th>
+                <td mat-cell *matCellDef="let row">
+                    <img *ngIf="row.img !== undefined && row.img.front_default !== null" [src]="row.img.front_default" alt="Pokemon">
+                    <img *ngIf="row.img === undefined || row.img.front_default === null" src="../../../assets/img/default.png" alt="Item" width="50">   
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="type">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+                <td mat-cell *matCellDef="let row"> {{row.types}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="actions">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
+                <td mat-cell *matCellDef="let row"> 
+                    <button class="btn btn-outline-primary" (click)="getPokemon(row.id)" data-toggle="modal" data-target="#infoPokemon">
+                        <i class="fa fa-info-circle"></i>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+            </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="infoPokemon" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title text-center" id="staticBackdropLabel">{{(pokemon !== undefined)? pokemon.name : 'N/A'}}</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+            <img *ngIf="pokemon !== undefined && pokemon.sprites.front_default !== null" [src]="pokemon.sprites.front_default" alt="Pokemon">
+            <img *ngIf="pokemon === undefined || pokemon.sprites.front_default === null" src="../../../assets/img/default.png" alt="Pokemon" style="margin-bottom: 0;">
+            <hr>
+            <p>Hp {{(pokemon !== undefined && pokemon.stats !== undefined)? pokemon.stats[0].base_stat : 'N/A' }}/{{(pokemon !== undefined && pokemon.stats !== undefined)? pokemon.stats[0].base_stat : 'N/A' }}</p>
+            <div class="container row">
+                <p class="col-md-6 col-12">
+                    Attack <br> <span class="badge badge-danger">{{(pokemon !== undefined && pokemon.stats !== undefined)? pokemon.stats[1].base_stat : 'N/A' }}</span>
+                </p>
+                <p class="col-md-6 col-12">
+                    Special Attack <br> <span class="badge badge-danger">{{(pokemon !== undefined && pokemon.stats !== undefined)? pokemon.stats[3].base_stat : 'N/A' }}</span>
+                </p>                
+            </div>
+            <div class="container row">
+                <p class="col-md-6 col-12">
+                    Defense <br> <span class="badge badge-warning">{{(pokemon !== undefined && pokemon.stats !== undefined)? pokemon.stats[2].base_stat : 'N/A' }}</span>
+                </p>
+                <p class="col-md-6 col-12">
+                    Special Defense <br> <span class="badge badge-warning">{{(pokemon !== undefined && pokemon.stats !== undefined)? pokemon.stats[4].base_stat : 'N/A' }}</span>
+                </p>
+            </div>
+            <div class="container row">
+                <p class="col-md-6">
+                    Speed <br> <span class="badge badge-info">{{(pokemon !== undefined && pokemon.stats !== undefined)? pokemon.stats[5].base_stat : 'N/A' }}</span>
+                </p>
+                <p class="col-md-6">
+                    Type <br> <span class="badge badge-info mr-2" *ngFor="let t of typeP">{{t.type.name}}</span>
+                </p>
+            </div>  
+            <h5 *ngIf="evolution !== undefined">Evolution</h5>          
+            <div *ngIf="evolution !== undefined" class="container row">                
+                <div class="col-md-4 col-12">
+                    <img *ngIf="pokemon !== undefined && pokemon.sprites !== undefined" [src]="pokemon.sprites.front_default" alt="Pokemon">
+                    <img *ngIf="pokemon === undefined || pokemon.sprites === undefined" src="../../../assets/img/default.png" alt="Pokemon">
+                    <p>{{(pokemon !== undefined)? pokemon.name : 'N/A'}}</p>
+                </div>
+                <div class="col-md-4 col-12" *ngFor="let e of evolves">
+                    <img *ngIf="e.img !== undefined && e.img.front_default !== undefined" [src]="e.img.front_default" alt="Pokemon">
+                    <img *ngIf="e.img === undefined || e.img.front_default === undefined" src="../../../assets/img/default.png" alt="Pokemon">
+                    <p>{{ e.name }}</p>
+                </div>
+            </div>
+            <div class="container row mt-2">
+                <button class="btn btn-outline-success col-md-3 offset-md-5" data-toggle="modal" data-target="#moves">Moves</button>
+            </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" id="moves" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title text-center" id="staticBackdropLabel">Moves</h3>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+            <h5 *ngIf="movesP.length === 0">Out of moves</h5>
+            <cdk-virtual-scroll-viewport class="example-viewport" *ngIf="movesP.length > 0">
+                <div *cdkVirtualFor="let m of movesP" class="example-item">{{m.move.name}}</div>
+            </cdk-virtual-scroll-viewport>            
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+</div>
