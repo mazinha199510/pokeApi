@@ -91,8 +91,8 @@
           </button>
         </div>
         <div class="modal-body text-center">
-            <img *ngIf="pokemon !== undefined && pokemon.sprites !== undefined" [src]="pokemon.sprites.front_default" alt="Pokemon">
-            <img *ngIf="pokemon === undefined || pokemon.sprites === undefined" src="../../../assets/img/default.png" alt="Pokemon">
+            <img *ngIf="pokemon !== undefined && pokemon.sprites.front_default !== null" [src]="pokemon.sprites.front_default" alt="Pokemon">
+            <img *ngIf="pokemon === undefined || pokemon.sprites.front_default === null" src="../../../assets/img/default.png" alt="Pokemon" style="margin-bottom: 0;">
             <hr>
             <p>Hp {{(pokemon !== undefined && pokemon.stats !== undefined)? pokemon.stats[0].base_stat : 'N/A' }}/{{(pokemon !== undefined && pokemon.stats !== undefined)? pokemon.stats[0].base_stat : 'N/A' }}</p>
             <div class="container row">
@@ -152,9 +152,10 @@
           </button>
         </div>
         <div class="modal-body text-center">
-                <cdk-virtual-scroll-viewport class="example-viewport">
+            <h5 *ngIf="movesP.length === 0">Out of moves</h5>
+            <cdk-virtual-scroll-viewport class="example-viewport" *ngIf="movesP.length > 0">
                 <div *cdkVirtualFor="let m of movesP" class="example-item">{{m.move.name}}</div>
-              </cdk-virtual-scroll-viewport>            
+            </cdk-virtual-scroll-viewport>            
         </div>
         <div class="modal-footer">
         </div>

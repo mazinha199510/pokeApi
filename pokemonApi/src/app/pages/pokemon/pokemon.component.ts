@@ -22,8 +22,8 @@ export class CustomVirtualScrollStrategy extends FixedSizeVirtualScrollStrategy 
 export class PokemonComponent implements OnInit {
 
   totalPokemons: any = [];
-  types: IBaseTypes[] = [];
-  habilitys: IBaseHabilitys[] = [];
+  types = [];
+  habilitys = [];
   cargando:boolean;
   name: string;
   habilitySelected: string;
@@ -150,10 +150,12 @@ export class PokemonComponent implements OnInit {
 
       this.evolution = this.evolutions.find(x => x.chain.species.name == resp.name);
 
-      const evolve = this.evolution.chain.evolves_to[0];
-      this.evolves.push(this.totalPokemons.find(x => x.name == evolve.species.name));
-      if(evolve.evolves_to.length > 0){
-        this.evolves.push(this.totalPokemons.find(x => x.name == evolve.evolves_to[0].species.name));
+      if(this.evolution !== undefined && this.evolution.chain.evolves_to.length > 0){
+        const evolve = this.evolution.chain.evolves_to[0];
+        this.evolves.push(this.totalPokemons.find(x => x.name == evolve.species.name));
+        if(evolve.evolves_to.length > 0){
+          this.evolves.push(this.totalPokemons.find(x => x.name == evolve.evolves_to[0].species.name));
+        }
       }
     });
   }
