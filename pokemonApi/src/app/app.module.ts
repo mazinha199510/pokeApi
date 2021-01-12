@@ -14,12 +14,14 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { PokemonComponent } from './pages/pokemon/pokemon.component';
 import { ItemsComponent } from './pages/items/items.component';
+import { MovesComponent } from './pages/moves/moves.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PokemonComponent,
-    ItemsComponent
+    ItemsComponent,
+    MovesComponent
   ],
   imports: [
     BrowserModule,
